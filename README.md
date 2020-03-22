@@ -18,7 +18,7 @@ This is an abstraction over the React `context` API. This is not a replacement f
 </tr>
 </table>
 
-> Check the examples below for more information.
+> Check the examples below for more information. The service implementation can be found here: https://github.com/danielberigoi/react-notify/blob/master/src/services/events.js
 
 ## Examples
 
