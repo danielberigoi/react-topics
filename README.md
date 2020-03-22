@@ -10,10 +10,12 @@ This is an abstraction over the React `context` API. This is not a replacement f
 ## How
 <table>
   <tr>
-    <td><img src="https://s5.gifyu.com/images/Screen-Recording-2020-03-22-at-16.37.07.gif"/></td>
+    <td><img src="https://s5.gifyu.com/images/Screen-Recording-2020-03-22-at-16.37.07.gif"/><br/>
+      <img src="https://s5.gifyu.com/images/Untitled-Diagram-1.png"/></td>
     <td><b>Components can subscribe to different topics and to push notifications to different topics.</b><br/><br/>For instance, the <b>Header</b> component is subscribed to <i>user</i> and <i>system</i> topics. The <b>Footer</b>
       is subscribed only to the <i>system</i> topic. The <b>Content</b> notifies each topic that the data has been changed, and passes the payload data with it. Each time any update is sent to these topics, the subscribed components gets re-rendered.
 <br/><br/>To send an update to a topic, use the  <i>notify</i> method. Both <i>notify</i> and  <i>data</i> are properties found under <b>props.events</b>.
+      
 </td>
 </tr>
 </table>
