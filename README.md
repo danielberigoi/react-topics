@@ -1,4 +1,4 @@
-# React simple pub-sub service
+# React simple notification service
 
 ## Summary
 
