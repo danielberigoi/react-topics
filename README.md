@@ -4,12 +4,21 @@
 
 Provides the ability to subscribe a component to multiple topics, and to push notifications to multiple topics.
 
-For instance, `component1` is subscribed to `user` and `system` topics.
-Each time any update is sent to these topics, the component gets re-rendered.
-To send an update to a topic, use the `notify` method.
+## Disclaimer
+This is an abstraction over the React `context` API. This is not a replacement for any state-management libraries like `redux`. Although the result is similar, the purpose here is to simplify the boilerplate work as much as possible.
 
-> `notify` and `data` are properties found under `events`.
-Check the examples below for more information.
+## How
+<table>
+  <tr>
+    <td><img src="https://s5.gifyu.com/images/Screen-Recording-2020-03-22-at-16.37.07.gif"/></td>
+    <td><b>Components can subscribe to different topics and to push notifications to different topics.</b><br/><br/>For instance, the <b>Header</b> component is subscribed to <i>user</i> and <i>system</i> topics. The <b>Footer</b>
+      is subscribed only to the <i>system</i> topic. The <b>Content</b> notifies each topic that the data has been changed, and passes the payload data with it. Each time any update is sent to these topics, the subscribed components gets re-rendered.
+<br/><br/>To send an update to a topic, use the  <i>notify</i> method. Both <i>notify</i> and  <i>data</i> are properties found under <b>props.events</b>.
+</td>
+</tr>
+</table>
+
+> Check the examples below for more information.
 
 ## Examples
 
@@ -91,5 +100,6 @@ export default withEvents(Content);
 ```
 
 ## Important
-- The components are automatically subscribed on first render.
-- The components are automatically unsubscribed on un-mount.
+- The components are automatically subscribed to the passed-in topics on first render.
+- The components are automatically unsubscribed on component un-mount.
+- The components are memoized using React's `memo`.
