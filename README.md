@@ -1,68 +1,95 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React simple pub-sub service
 
-## Available Scripts
+## Summary
 
-In the project directory, you can run:
+Provides the ability to subscribe a component to multiple topics, and to push notifications to multiple topics.
 
-### `yarn start`
+For instance, `component1` is subscribed to `user` and `system` topics.
+Each time any update is sent to these topics, the component gets re-rendered.
+To send an update to a topic, use the `notify` method.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> `notify` and `data` are properties found under `events`.
+Check the examples below for more information.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Examples
 
-### `yarn test`
+### App.js
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Wrap the main application with the `EventProvider` component.
 
-### `yarn build`
+```javascript
+import React from "react";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import { EventProvider } from "./services/events";
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const App = () => {
+  return (
+    <EventProvider>
+      <div className="App">
+        <Header />
+        <Content />
+      </div>
+    </EventProvider>
+  );
+};
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### ExampleComponent1.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To consume the event data, wrap the component with the `withEvents` HOC.
 
-### `yarn eject`
+- A component can subscribe to one or multiple topics.
+- The event data can be found under `props.events.data`
+- The event data is structured per topic. For instance, if the component is subscribed to the `system` topic, the data will be found under `props.events.data.system`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
+import { withEvents } from "../services/events";
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const Header = props => {
+  const { data } = props.events;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  return (
+    <div>
+      <p>User: {data.user.name || "No user"}</p>
+      <p>System loaded: {(data.system.loaded && "true") || "false"}</p>
+    </div>
+  );
+};
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// Pass the topics you want this component to listen to
+export default withEvents(Header, { topics: ["system", "user"] });
+```
 
-## Learn More
+### ExampleComponent2.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To notify an update, wrap the component with the `withEvents` HOC.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- When you `notify` on a specific topic, all components that are subscribed will be updated.
+- The payload sent with each notification is automatically merged, there is no need to extend any previous data.
 
-### Code Splitting
+```javascript
+import React from "react";
+import { withEvents } from "../services/events";
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+const Content = props => {
+  const { notify } = props.events;
 
-### Analyzing the Bundle Size
+  return (
+    <pre>
+      <button onClick={() => notify("system", { loaded: true })}>
+        Notify that the system is loaded
+      </button>
+      <button onClick={() => notify("user", { name: "Daniel" })}>
+        Notify user update
+      </button>
+    </pre>
+  );
+};
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+export default withEvents(Content);
+```
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Important
+- The components are automatically subscribed on first render.
+- The components are automatically unsubscribed on un-mount.
