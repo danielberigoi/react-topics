@@ -85,6 +85,7 @@ const EventConsumer = memo(props => {
     );
     // Unregister the subscriptions on un-mount
     return () => _unsubscribe(subscriptions, topics);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Render
