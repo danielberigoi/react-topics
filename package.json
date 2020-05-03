@@ -1,10 +1,10 @@
 {
   "name": "react-topics",
-  "version": "0.1.0",
-  "description": "Simple publish-subscribe service for React",
+  "version": "0.1.1",
+  "description": "Simple pub-sub service for React",
   "license": "MIT",
   "repository": "danielberigoi/react-topics",
-  "main": "index.js",
+  "main": "dist/index.js",
   "keywords": [
     "react",
     "topics",

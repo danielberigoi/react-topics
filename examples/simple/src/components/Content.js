@@ -1,5 +1,5 @@
 import React from "react";
-import { withTopics } from "../services/events";
+import { withTopics } from "react-topics";
 
 const Content = props => {
   const { publish } = props.topics;
