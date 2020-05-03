@@ -4,13 +4,15 @@
 Provides the ability to subscribe React components to defined topics.
 
 ## Examples
-- [Simple](https://github.com/danielberigoi/react-notify/examples/simple)
+- [Simple Example](https://github.com/danielberigoi/react-topics/tree/master/examples/simple)
 
 ### Getting started
 
 ```bash
 npm install react-topics
 ```
+
+### App.js
 
 Wrap the main application with the `TopicsProvider` component.
 
@@ -31,7 +33,7 @@ const App = () => {
 };
 ```
 
-### ExampleComponent1.js
+### Header.js - Subscriber example
 
 To consume the topic data, wrap the component with the `withTopics` HOC.
 
@@ -57,7 +59,7 @@ const Header = props => {
 export default withTopics(Header, { topics: ["system", "user"] });
 ```
 
-### ExampleComponent2.js
+### Content.js - Publisher example
 
 To publish an update, wrap the component with the `withTopics` HOC.
 
