@@ -67,7 +67,7 @@ To publish an update, wrap the component with the `withTopics` HOC.
 import { withTopics } from "react-topics";
 
 const Content = props => {
-  const { notify } = props.events;
+  const { publish } = props.topics;
 
   return (
     <pre>
