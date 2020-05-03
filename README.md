@@ -3,9 +3,6 @@
 ## Summary
 Provides the ability to subscribe React components to defined topics.
 
-## Examples
-- [Simple Example](https://github.com/danielberigoi/react-topics/tree/master/examples/simple)
-
 ### Getting started
 
 ```bash
@@ -86,6 +83,9 @@ const Content = props => {
 
 export default withTopics(Content);
 ```
+
+## Examples
+- [Simple Example](https://github.com/danielberigoi/react-topics/tree/master/examples/simple)
 
 ## Disclaimer
 This is an abstraction over the React `context` API. This is not a replacement for any state-management libraries like `redux`.
