@@ -1,8 +1,8 @@
 import React from "react";
-import { withEvents } from "../services/events";
+import { withTopics } from "../services/events";
 
 const Header = props => {
-  const { data } = props.events;
+  const { data } = props.topics;
 
   console.log("header", data);
 
@@ -14,4 +14,4 @@ const Header = props => {
   );
 };
 
-export default withEvents(Header, { topics: ["system", "user"] });
+export default withTopics(Header, { topics: ["system", "user"] });

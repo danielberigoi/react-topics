@@ -1,8 +1,8 @@
 import React from "react";
-import { withEvents } from "../services/events";
+import { withTopics } from "../services/events";
 
 const Footer = props => {
-  const { data } = props.events;
+  const { data } = props.topics;
 
   return (
     <div>
@@ -11,4 +11,4 @@ const Footer = props => {
   );
 };
 
-export default withEvents(Footer, { topics: ["system"] });
+export default withTopics(Footer, { topics: ["system"] });

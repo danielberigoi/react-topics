@@ -1,4 +1,4 @@
-# React simple notification service
+# React simple publish-subscribe service
 
 ## Summary
 
@@ -26,36 +26,36 @@ This is an abstraction over the React `context` API. This is not a replacement f
 
 ### App.js
 
-Wrap the main application with the `EventProvider` component.
+Wrap the main application with the `NotificationProvider` component.
 
 ```javascript
 import React from "react";
 import Header from "./components/Header";
 import Content from "./components/Content";
-import { EventProvider } from "./services/events";
+import { NotificationProvider } from "./services/events";
 
 const App = () => {
   return (
-    <EventProvider>
+    <NotificationProvider>
       <div className="App">
         <Header />
         <Content />
       </div>
-    </EventProvider>
+    </NotificationProvider>
   );
 };
 ```
 
 ### ExampleComponent1.js
 
-To consume the event data, wrap the component with the `withEvents` HOC.
+To consume the event data, wrap the component with the `withNotifications` HOC.
 
 - A component can subscribe to one or multiple topics.
 - The event data can be found under `props.events.data`
 - The event data is structured per topic. For instance, if the component is subscribed to the `system` topic, the data will be found under `props.events.data.system`
 
 ```javascript
-import { withEvents } from "../services/events";
+import { withNotifications } from "../services/events";
 
 const Header = props => {
   const { data } = props.events;
@@ -69,19 +69,19 @@ const Header = props => {
 };
 
 // Pass the topics you want this component to listen to
-export default withEvents(Header, { topics: ["system", "user"] });
+export default withNotifications(Header, { topics: ["system", "user"] });
 ```
 
 ### ExampleComponent2.js
 
-To notify an update, wrap the component with the `withEvents` HOC.
+To notify an update, wrap the component with the `withNotifications` HOC.
 
 - When you `notify` on a specific topic, all components that are subscribed will be updated.
 - The payload sent with each notification is automatically merged, there is no need to extend any previous data.
 
 ```javascript
 import React from "react";
-import { withEvents } from "../services/events";
+import { withNotifications } from "../services/events";
 
 const Content = props => {
   const { notify } = props.events;
@@ -98,7 +98,7 @@ const Content = props => {
   );
 };
 
-export default withEvents(Content);
+export default withNotifications(Content);
 ```
 
 ## Important
