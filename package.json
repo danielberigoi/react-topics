@@ -1,6 +1,6 @@
 {
   "name": "react-topics",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Simple pub-sub service for React",
   "license": "MIT",
   "repository": "danielberigoi/react-topics",
